@@ -9,15 +9,19 @@
 </head>
 
 <body>
-	<ul class="list-unstyled">
+	<ul th:if="${pizzas.size()} > 0" class="list-unstyled">
 		<li th:each="pizza: ${pizzas}">
-			prova
-			<span class="bg-danger">[[${pizza.name}]]</span>
-			<span>[[${pizza.description}]]</span>
-			<span>$ [[${pizza.price}]]</span>
+			<div class="card" >
+				<img style="width: 200px;" th:src="${pizza.photo}">
+				<h2>[[${pizza.name}]]</h2>
+				<span>[[${pizza.description}]]</span>
+				<span>$ [[${pizza.price}]]</span>
+			</div>
 		</li>
-
 	</ul>
+	<div th:if="${pizzas.size()} == 0">
+		Non c'è niente
+	</div>
 </body>
 
 </html>
