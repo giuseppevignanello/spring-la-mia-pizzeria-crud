@@ -21,17 +21,18 @@ public class Pizza {
 	@Column(columnDefinition="text")
 	private String description;
 	
-	@Column(length = 255)
+	@Lob
+	@Column(columnDefinition="text")
 	private String photo;
 	
 	@Column(nullable = false)
-	private float price;
+	private double price;
 	
 	public Pizza() {
 		
 	}
 	
-	public Pizza(String name, String description, String photo, float price) {
+	public Pizza(String name, String description, String photo, double price) {
 		setName(name); 
 		setDescription(description); 
 		setPhoto(photo); 
@@ -70,11 +71,11 @@ public class Pizza {
 		this.photo = photo;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 }
