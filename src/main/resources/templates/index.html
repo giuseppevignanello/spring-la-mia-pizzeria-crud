@@ -11,12 +11,14 @@
 <body>
 	<ul th:if="${pizzas.size()} > 0" class="list-unstyled">
 		<li th:each="pizza: ${pizzas}">
-			<div class="card" >
-				<img style="width: 200px;" th:src="${pizza.photo}">
-				<h2>[[${pizza.name}]]</h2>
-				<span>[[${pizza.description}]]</span>
-				<span>$ [[${pizza.price}]]</span>
-			</div>
+			<a th:href="@{'/' + ${pizza.id}}">
+				<div class="card">
+					<img style="width: 200px;" th:src="${pizza.photo}">
+					<h2>[[${pizza.name}]]</h2>
+					<span>[[${pizza.description}]]</span>
+					<span>$ [[${pizza.price}]]</span>
+				</div>
+			</a>
 		</li>
 	</ul>
 	<div th:if="${pizzas.size()} == 0">
