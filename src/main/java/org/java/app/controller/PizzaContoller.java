@@ -54,6 +54,9 @@ public class PizzaContoller {
 	public String store(@Valid @ModelAttribute Pizza pizza,
 			BindingResult bindingResult, Model model) {
 		
+		List<Pizza> pizzas = pizzaService.findAll();
+		model.addAttribute("pizzas", pizzas);
+		
 		if(bindingResult.hasErrors()) {
 			System.out.println("Error: ");
 			bindingResult.getAllErrors().forEach(System.out::println);
@@ -66,7 +69,7 @@ public class PizzaContoller {
 			System.out.println("Errors: " + e.getClass().getSimpleName());
 			return "create";
 		}
-		return "create";
+		return "index";
 	
 		
 		
