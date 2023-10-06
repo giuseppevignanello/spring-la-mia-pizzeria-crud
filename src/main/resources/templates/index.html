@@ -9,14 +9,18 @@
 </head>
 
 <body>
+	<a href="/create"> Crea una nuova pizza </a>
+	<form>
+		<label for="name">Cerca una pizza</label>
+		<input type="text" name="name">
+		<button class="btn" type="submit">Cerca</button>
+	</form>
 	<ul th:if="${pizzas.size()} > 0" class="list-unstyled">
 		<li th:each="pizza: ${pizzas}">
 			<a th:href="@{'/' + ${pizza.id}}">
 				<div class="card">
-					<img style="width: 200px;" th:src="${pizza.photo}">
 					<h2>[[${pizza.name}]]</h2>
-					<span>[[${pizza.description}]]</span>
-					<span>$ [[${pizza.price}]]</span>
+					
 				</div>
 			</a>
 		</li>

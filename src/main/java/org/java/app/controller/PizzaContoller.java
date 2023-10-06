@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -21,8 +22,8 @@ public class PizzaContoller {
 	private PizzaService pizzaService;
 	
 	@GetMapping("/")
-	public String getIndex(Model model) {
-		List<Pizza> pizzas = pizzaService.findAll();
+	public String getIndex(Model model, @RequestParam(required= false) String name) {
+		List<Pizza> pizzas = name == null ? pizzaService.findAll() : pizzaService.filterByName(name, name);
 		model.addAttribute("pizzas", pizzas);
 		return "index";
 	}
@@ -33,6 +34,13 @@ public class PizzaContoller {
 		Pizza pizza = pizzaService.findById(id);
 		model.addAttribute("pizza", pizza);	
 		return "show";
+	}
+	@GetMapping("/create")
+	public String getCreateForm(Model model) {
+		
+		model.addAttribute("pizza", new Pizza());
+		
+		return "create";
 	}
 
 }
