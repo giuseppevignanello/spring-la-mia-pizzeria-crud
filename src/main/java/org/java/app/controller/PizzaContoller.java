@@ -4,17 +4,21 @@ package org.java.app.controller;
 
 import java.util.List;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.java.app.pojo.Pizza;
 import org.java.app.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -47,9 +51,25 @@ public class PizzaContoller {
 	}
 	
 	@PostMapping("/create")
-	public String store(@ModelAttribute Pizza pizza, Model model) {
-		pizzaService.save(pizza);
+	public String store(@Valid @ModelAttribute Pizza pizza,
+			BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("Error: ");
+			bindingResult.getAllErrors().forEach(System.out::println);
+			return "create";
+		}
+		
+		try {
+			pizzaService.save(pizza);
+		} catch(Exception e) {
+			System.out.println("Errors: " + e.getClass().getSimpleName());
+			return "create";
+		}
 		return "create";
+	
+		
+		
 	}
 	
 
