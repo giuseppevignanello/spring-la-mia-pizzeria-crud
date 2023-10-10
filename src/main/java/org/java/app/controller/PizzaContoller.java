@@ -103,5 +103,18 @@ public class PizzaContoller {
 		return "index";
 		
 	}
+	
+	@PostMapping("/delete/{id}")
+	
+	
+	public String delete(@PathVariable int id, Pizza pizza, Model model) {
+		
+		List<Pizza> pizzas = pizzaService.findAll();
+		model.addAttribute("pizzas", pizzas);
+		
+		Pizza pizzaToDelete = pizzaService.findById(id); 
+		pizzaService.deletePizza(pizzaToDelete);
+		return "redirect:/";
+	}
 
 }

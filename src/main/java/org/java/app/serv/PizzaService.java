@@ -34,4 +34,8 @@ public class PizzaService {
 		
 		return pizzaRepo.findByNameContainingOrDescriptionContaining(pizzaName, pizzaDescription);
 	}
+	
+	public void deletePizza(Pizza pizza) {
+		pizzaRepo.delete(pizza);
+	}
 }

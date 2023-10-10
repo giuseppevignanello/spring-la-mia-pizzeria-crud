@@ -23,6 +23,9 @@
 				</div>
 			</a>
 			<a th:href="@{'/edit/' + ${pizza.id}}"> Modifica</a>
+			<form th:action="@{'/delete/' + ${pizza.id}}" method="post">
+				<input type="submit" value="DELETE" >
+			</form>
 		</li>
 	</ul>
 	<div th:if="${pizzas.size()} == 0">
