@@ -20,9 +20,9 @@
 			<a th:href="@{'/' + ${pizza.id}}">
 				<div class="card">
 					<h2>[[${pizza.name}]]</h2>
-					
 				</div>
 			</a>
+			<a th:href="@{'/edit/' + ${pizza.id}}"> Modifica</a>
 		</li>
 	</ul>
 	<div th:if="${pizzas.size()} == 0">

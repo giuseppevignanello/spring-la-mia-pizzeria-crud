@@ -72,8 +72,36 @@ public class PizzaContoller {
 		return "index";
 	
 		
-		
 	}
 	
+
+	
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable int id, Model model) {
+		model.addAttribute("pizza", pizzaService.findById(id));
+		return "edit";
+	}
+	
+	@PostMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute Pizza pizza, BindingResult bindingResult, Model model) {
+		
+		List<Pizza> pizzas = pizzaService.findAll();
+		model.addAttribute("pizzas", pizzas);
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("Error: ");
+			bindingResult.getAllErrors().forEach(System.out::println);
+			return "edit";
+		}
+		
+		try {
+			pizzaService.save(pizza);
+		} catch(Exception e) {
+			System.out.println("Errors: " + e.getClass().getSimpleName());
+			return "edit";
+		}
+		return "index";
+		
+	}
 
 }
